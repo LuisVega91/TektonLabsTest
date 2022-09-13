@@ -1,3 +1,4 @@
+import { DatabaseTypes } from './../constants/database-types.constant';
 import * as Joi from 'joi';
 import { Environment, LoggerLevel } from '../constants';
 
@@ -16,6 +17,9 @@ export const environmentVariablesSchema = Joi.object({
   DB_PASSWORD: Joi.string().required(),
   DB_PORT: Joi.number().required(),
   DB_HOST: Joi.string().required(),
+  DB_TYPE: Joi.string()
+    .valid(...Object.values(DatabaseTypes))
+    .required(),
   TYPEORM_CONNECTION: Joi.string().required(),
   TYPEORM_HOST: Joi.string().required(),
   TYPEORM_USERNAME: Joi.string().required(),

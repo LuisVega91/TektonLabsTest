@@ -4,7 +4,7 @@ import { ServerModule } from './server/server.module';
 
 async function bootstrap() {
   const app = await NestFactory.create(ServerModule);
-
+  app.enableCors();
   const config = new DocumentBuilder()
     .setTitle('Tekton Labs Test')
     .setDescription('music suggestion app')
