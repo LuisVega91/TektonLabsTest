@@ -1,9 +1,9 @@
 import { NestFactory } from '@nestjs/core';
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
-import { ApplicationModule } from './application/application.module';
+import { ServerModule } from './server/server.module';
 
 async function bootstrap() {
-  const app = await NestFactory.create(ApplicationModule);
+  const app = await NestFactory.create(ServerModule);
 
   const config = new DocumentBuilder()
     .setTitle('Tekton Labs Test')
