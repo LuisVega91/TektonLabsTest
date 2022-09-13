@@ -7,10 +7,12 @@ import {
   Param,
   Delete,
 } from '@nestjs/common';
+import { ApiTags } from '@nestjs/swagger';
 import { GeneresService } from './generes.service';
 import { CreateGenereDto } from './dto/create-genere.dto';
 import { UpdateGenereDto } from './dto/update-genere.dto';
 
+@ApiTags('generes')
 @Controller('generes')
 export class GeneresController {
   constructor(private readonly generesService: GeneresService) {}

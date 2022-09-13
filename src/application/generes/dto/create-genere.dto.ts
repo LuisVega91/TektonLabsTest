@@ -1,1 +1,3 @@
-export class CreateGenereDto {}
+export class CreateGenereDto {
+  name: string;
+}

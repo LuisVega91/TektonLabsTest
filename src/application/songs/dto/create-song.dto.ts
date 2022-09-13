@@ -1,1 +1,3 @@
-export class CreateSongDto {}
+export class CreateSongDto {
+  name: string;
+}
