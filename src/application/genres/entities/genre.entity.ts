@@ -33,13 +33,19 @@ export class Genre {
 
   @DeleteDateColumn({
     type: 'timestamptz',
-    default: () => 'CURRENT_TIMESTAMP',
   })
   deleteAt: Date;
 
   @OneToMany(() => Song, (song) => song.genre)
   songs: Song[];
 
-  @ManyToMany(() => User, (user) => user.genres)
+  @ManyToMany(() => User, (user) => user.preferences)
   users: User[];
+
+  static get relations() {
+    return {
+      songs: 'songs',
+      users: 'users',
+    };
+  }
 }
