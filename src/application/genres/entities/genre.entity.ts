@@ -33,7 +33,6 @@ export class Genre {
 
   @DeleteDateColumn({
     type: 'timestamptz',
-    default: () => 'CURRENT_TIMESTAMP',
   })
   deleteAt: Date;
 
@@ -42,4 +41,11 @@ export class Genre {
 
   @ManyToMany(() => User, (user) => user.preferences)
   users: User[];
+
+  static get relations() {
+    return {
+      songs: 'songs',
+      users: 'users',
+    };
+  }
 }

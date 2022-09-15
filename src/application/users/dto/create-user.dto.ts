@@ -24,6 +24,5 @@ export class CreateUserDto {
 
   @IsArray()
   @IsOptional()
-  @ApiProperty()
   readonly preferencesIds: number[];
 }

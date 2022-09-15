@@ -23,7 +23,7 @@ import config from '../configuration/config';
             messageKey: 'message',
             level: loggerLevel,
             useLevelLabels: true,
-            autoLogging: false,
+            autoLogging: true,
             serializers: {
               req: () => undefined,
               res: () => undefined,

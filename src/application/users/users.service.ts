@@ -84,7 +84,7 @@ export class UsersService {
     return this.userRepo.save(user);
   }
 
-  async remove(id: number): Promise<{ affected }> {
+  async remove(id: number): Promise<{ affected: number }> {
     const { affected } = await this.userRepo.softDelete(id);
     return { affected };
   }
