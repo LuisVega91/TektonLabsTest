@@ -40,6 +40,6 @@ export class Genre {
   @OneToMany(() => Song, (song) => song.genre)
   songs: Song[];
 
-  @ManyToMany(() => User, (user) => user.genres)
+  @ManyToMany(() => User, (user) => user.preferences)
   users: User[];
 }

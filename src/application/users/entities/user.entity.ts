@@ -1,4 +1,3 @@
-import { UserRoles } from './../constants/roles.constant';
 import {
   Column,
   CreateDateColumn,
@@ -9,7 +8,9 @@ import {
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
+import { Exclude } from 'class-transformer';
 
+import { UserRoles } from '../constants/user-roles.constant';
 import { Genre } from '../../genres/entities/genre.entity';
 
 @Entity({ name: 'users' })
@@ -20,6 +21,7 @@ export class User {
   @Column({ type: 'varchar', length: 255, unique: true, nullable: false })
   email: string;
 
+  @Exclude()
   @Column({ type: 'varchar', length: 255, nullable: false })
   password: string;
 
@@ -40,11 +42,10 @@ export class User {
 
   @DeleteDateColumn({
     type: 'timestamptz',
-    default: () => 'CURRENT_TIMESTAMP',
   })
   deleteAt: Date;
 
-  @ManyToMany(() => Genre, (genres) => genres.users)
+  @ManyToMany(() => Genre, (preference) => preference.users)
   @JoinTable({
     name: 'users_preferences',
     joinColumn: {
@@ -54,5 +55,9 @@ export class User {
       name: 'genre_id',
     },
   })
-  genres: Genre[];
+  preferences: Genre[];
+
+  static get relations() {
+    return { preferences: 'preferences' };
+  }
 }
