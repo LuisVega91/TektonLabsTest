@@ -26,6 +26,7 @@ export class UsersService {
   async create(createUserDto: CreateUserDto): Promise<User> {
     const { email } = createUserDto;
     this.logger.log('Checking if email exist...');
+
     const emailAlreadyExists = !!(await this.userRepo.count({
       where: { email },
     }));
@@ -33,12 +34,23 @@ export class UsersService {
       this.logger.error('The email already exists');
       throw new ConflictException('The email already exists');
     }
+
     this.logger.log('Creating user...');
     const newUser = this.userRepo.create(createUserDto);
     const hashPassword = await hash(newUser.password);
     newUser.password = hashPassword;
+
+    this.logger.log('Linking preferences...');
+    if (createUserDto.preferencesIds) {
+      const genres = await this.genreRepo.findBy({
+        id: In(createUserDto.preferencesIds),
+      });
+      newUser.preferences = genres;
+    }
+
     await this.userRepo.save(newUser);
     this.logger.log('User created successfully');
+
     return newUser;
   }
 

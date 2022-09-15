@@ -33,11 +33,14 @@ export class Song {
 
   @DeleteDateColumn({
     type: 'timestamptz',
-    default: () => 'CURRENT_TIMESTAMP',
   })
   deleteAt: Date;
 
   @ManyToOne(() => Genre, (genre) => genre.songs, { nullable: false })
   @JoinColumn({ name: 'genre_id' })
-  genre: string;
+  genre: Genre;
+
+  static get relations() {
+    return { genre: 'genre' };
+  }
 }
