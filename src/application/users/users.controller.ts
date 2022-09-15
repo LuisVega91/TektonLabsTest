@@ -1,6 +1,3 @@
-import { PayloadToken } from './../../server/auth/models/token.model';
-import { UserRoles } from './constants/user-roles.constant';
-import { ApiKeyGuard } from './../../server/auth/guards/api-key.guard';
 import {
   Controller,
   Get,
@@ -11,6 +8,8 @@ import {
   Delete,
   UseGuards,
   Req,
+  CacheKey,
+  CacheTTL,
 } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 
@@ -20,6 +19,9 @@ import { UpdateUserDto } from './dto/update-user.dto';
 import { UsersService } from './users.service';
 import { JwtAuthGuard } from 'src/server/auth/guards/jwt-auth.guard';
 import { RolesGuard } from 'src/server/auth/guards/roles.guard';
+import { PayloadToken } from './../../server/auth/models/token.model';
+import { UserRoles } from './constants/user-roles.constant';
+import { ApiKeyGuard } from './../../server/auth/guards/api-key.guard';
 import { Song } from './../songs/entities/song.entity';
 import { User } from './entities/user.entity';
 import { V1 } from './../../server/routes/routes.constants';
@@ -86,6 +88,8 @@ export class UsersController {
   }
 
   @UseGuards(JwtAuthGuard)
+  @CacheKey('suggest-me')
+  @CacheTTL(3600)
   @Get('suggest-me/:id')
   suggestMe(@Param('id') id: number): Promise<Song[]> {
     return this.usersService.suggestMe(id);

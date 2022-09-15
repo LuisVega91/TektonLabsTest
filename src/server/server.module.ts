@@ -1,4 +1,5 @@
-import { Module } from '@nestjs/common';
+import { Module, CacheModule, CacheInterceptor } from '@nestjs/common';
+import { APP_INTERCEPTOR } from '@nestjs/core';
 import { ApplicationModule } from 'src/application/application.module';
 import { AuthModule } from './auth/auth.module';
 import { ConfigurationModule } from './configuration/configuration.module';
@@ -12,6 +13,13 @@ import { LoggerModule } from './logger/logger.module';
     DatabaseModule,
     LoggerModule,
     AuthModule,
+    CacheModule,
+  ],
+  providers: [
+    {
+      provide: APP_INTERCEPTOR,
+      useClass: CacheInterceptor,
+    },
   ],
 })
 export class ServerModule {}
