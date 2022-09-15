@@ -13,7 +13,7 @@ import { LoggerModule } from './logger/logger.module';
     DatabaseModule,
     LoggerModule,
     AuthModule,
-    CacheModule,
+    CacheModule.register(),
   ],
   providers: [
     {

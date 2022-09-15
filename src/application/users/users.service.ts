@@ -106,7 +106,6 @@ export class UsersService {
   async suggestMe(id: number): Promise<Song[]> {
     const genres = await this.genreRepo.find({
       where: { users: { id: id } },
-      select: { id: true },
     });
     const songs = this.songRepo.find({
       where: { genre: { id: In(genres.map((genere) => genere.id)) } },
