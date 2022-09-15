@@ -1,18 +1,18 @@
+import { User } from '../../users/entities/user.entity';
+import { Song } from '../../songs/entities/song.entity';
 import {
   Column,
   CreateDateColumn,
   DeleteDateColumn,
   Entity,
-  JoinColumn,
-  ManyToOne,
+  ManyToMany,
+  OneToMany,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
 
-import { Genre } from '../../genres/entities/genre.entity';
-
-@Entity({ name: 'songs' })
-export class Song {
+@Entity({ name: 'genres' })
+export class Genre {
   @PrimaryGeneratedColumn()
   id: number;
 
@@ -36,11 +36,16 @@ export class Song {
   })
   deleteAt: Date;
 
-  @ManyToOne(() => Genre, (genre) => genre.songs, { nullable: false })
-  @JoinColumn({ name: 'genre_id' })
-  genre: Genre;
+  @OneToMany(() => Song, (song) => song.genre)
+  songs: Song[];
+
+  @ManyToMany(() => User, (user) => user.preferences)
+  users: User[];
 
   static get relations() {
-    return { genre: 'genre' };
+    return {
+      songs: 'songs',
+      users: 'users',
+    };
   }
 }

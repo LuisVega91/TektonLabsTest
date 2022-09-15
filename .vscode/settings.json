@@ -1,6 +1,9 @@
 {
     "cSpell.words": [
         "nestjs",
+        "pino",
+        "Tekton",
+        "timestamptz",
         "TYPEORM"
     ]
 }
