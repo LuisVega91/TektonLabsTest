@@ -1,3 +1,4 @@
+import { Song } from './../songs/entities/song.entity';
 import {
   Injectable,
   ConflictException,
@@ -19,6 +20,7 @@ export class UsersService {
     private readonly logger: LoggerService,
     @InjectRepository(User) private userRepo: Repository<User>,
     @InjectRepository(Genre) private genreRepo: Repository<Genre>,
+    @InjectRepository(Song) private songRepo: Repository<Song>,
   ) {
     this.logger.setContext(UsersService.name);
   }
@@ -99,5 +101,17 @@ export class UsersService {
   async remove(id: number): Promise<{ affected: number }> {
     const { affected } = await this.userRepo.softDelete(id);
     return { affected };
+  }
+
+  async suggestMe(id: number): Promise<Song[]> {
+    const genres = await this.genreRepo.find({
+      where: { users: { id: id } },
+      select: { id: true },
+    });
+    const songs = this.songRepo.find({
+      where: { genre: { id: In(genres.map((genere) => genere.id)) } },
+      relations: [Song.relations.genre],
+    });
+    return songs;
   }
 }

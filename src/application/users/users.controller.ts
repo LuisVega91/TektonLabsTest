@@ -1,3 +1,4 @@
+import { Song } from './../songs/entities/song.entity';
 import { V1 } from './../../server/routes/routes.constants';
 import { UsersService } from './users.service';
 import {
@@ -47,5 +48,10 @@ export class UsersController {
   @Delete(':id')
   remove(@Param('id') id: number): Promise<{ affected: number }> {
     return this.usersService.remove(id);
+  }
+
+  @Get('suggest-me/:id')
+  suggestMe(@Param('id') id: number): Promise<Song[]> {
+    return this.usersService.suggestMe(id);
   }
 }
