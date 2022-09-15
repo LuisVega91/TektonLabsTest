@@ -12,7 +12,7 @@ import { UpdateUserDto } from './dto/update-user.dto';
 import { LoggerService } from './../../server/logger/logger.service';
 import { Genre } from './../genres/entities/genre.entity';
 import { User } from './entities/user.entity';
-import { hash } from '../../common/helpers';
+import { Crypt } from '../../common/helpers';
 
 @Injectable()
 export class UsersService {
@@ -39,7 +39,7 @@ export class UsersService {
 
     this.logger.log('Creating user...');
     const newUser = this.userRepo.create(createUserDto);
-    const hashPassword = await hash(newUser.password);
+    const hashPassword = await Crypt.hash(newUser.password, 10);
     newUser.password = hashPassword;
 
     this.logger.log('Linking preferences...');
