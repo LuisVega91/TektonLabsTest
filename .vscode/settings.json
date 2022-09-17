@@ -5,5 +5,17 @@
         "Tekton",
         "timestamptz",
         "TYPEORM"
+    ],
+    "sqltools.connections": [
+        {
+            "previewLimit": 50,
+            "server": "localhost",
+            "port": 5432,
+            "driver": "PostgreSQL",
+            "name": "TekTonTest",
+            "database": "my_db",
+            "username": "root",
+            "password": "123456"
+        }
     ]
 }
