@@ -45,18 +45,20 @@ $ npm run start:dev
 $ npm run start:prod
 ```
 
-## Test
+
+## Running migrations
 
 ```bash
-# unit tests
-$ npm run test
+# to generate migration
+$ npm run migration:generate <path>
 
-# e2e tests
-$ npm run test:e2e
+# to show generated migrations
+$ npm run start:show
 
-# test coverage
-$ npm run test:cov
+# to run generated migrations
+$ npm run start:run
 ```
+
 
 ## Support
 
