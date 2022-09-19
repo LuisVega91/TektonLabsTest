@@ -1,3 +1,4 @@
+import { ALL_ROUTES } from './../routes/routes.constants';
 import { Module, MiddlewareConsumer, NestModule, Global } from '@nestjs/common';
 import { LoggerModule as LoggerPinoModule } from 'nestjs-pino';
 import { ConfigType } from '@nestjs/config';
@@ -47,6 +48,6 @@ import config from '../configuration/config';
 })
 export class LoggerModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {
-    consumer.apply(CorrelationIdMiddleware).forRoutes('*');
+    consumer.apply(CorrelationIdMiddleware).forRoutes(ALL_ROUTES);
   }
 }

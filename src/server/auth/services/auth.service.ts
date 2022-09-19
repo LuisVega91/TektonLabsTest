@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, forwardRef, Inject } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 
 import { User } from './../../../application/users/entities/user.entity';
@@ -9,7 +9,7 @@ import { Crypt } from 'src/common/helpers';
 @Injectable()
 export class AuthService {
   constructor(
-    private usersService: UsersService,
+    @Inject(forwardRef(() => UsersService)) private usersService: UsersService,
     private jwtService: JwtService,
   ) {}
 
